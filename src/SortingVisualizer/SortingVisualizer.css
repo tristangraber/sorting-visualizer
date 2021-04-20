@@ -1,0 +1,45 @@
+/*
+Sorting Algorithm Visualizer CSS file for STEM EE 2nd-Year Capstone project
+Names: Tristan Graber and Ethan Wert
+Date: 4/21/21
+*/
+
+.array-containter {
+  position: absolute;
+}
+
+.array-bar {
+    width:12px;
+    background-color: palevioletred;
+    display: inline-block;
+    margin: 0 1px;
+    position: relative;
+    top: 5px;
+}
+
+.button {
+    position: relative;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    background-color: gray;
+    top: 5px;
+  }
+
+h2 {
+    text-align: center;
+    color: navy;
+    font-family: "Lucida Console", "Courier New", monospace;
+}
+
+h1 {
+  text-align: center;
+  color: navy;
+  font-family: "Lucida Console", "Courier New", monospace;
+}
