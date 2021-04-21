@@ -5,9 +5,12 @@
 */
 
 import React from 'react';
+import {getBubbleSortAnimations} from '../SortingAlgorithms/SortingAlgorithms.js';
+import {getSelectionSortAnimations} from '../SortingAlgorithms/SortingAlgorithms.js';
+import {randomInt} from '../SortingAlgorithms/HelperFunctions.js';
+import {findElementIdx} from '../SortingAlgorithms/HelperFunctions.js';
 import './SortingVisualizer.css';
 
-// constant values for convenience
 const PRIMARY_COLOR = 'lightblue';
 const SECONDARY_COLOR = 'orange';
 const FINAL_COLOR = 'lightgreen';
@@ -52,6 +55,12 @@ export default class SortingVisualizer extends React.Component {
 
     /*
         Runs the Bubble Sort sorting algorithm on the current array.
+
+        DOCUMENTATION:
+         - animations array will have 2 indicies for each step of the animation
+            - EX: animations = [0,0,1,1,2,2...]
+            - the first of the pair is to change color from primary to secondary
+            - the second of the pair is to change from secondary back to primary or final
     */
     bubbleSort() {
         // get array of animations for bubble sort
@@ -115,7 +124,6 @@ export default class SortingVisualizer extends React.Component {
     selectionSort() {
         // get array of animations for selection sort
         const animations = getSelectionSortAnimations(this.state.array);
-        console.log(animations);
         // loop for each value of the animation (pt 1: primary to secondary, pt 2: secondary to other)
         for (let i = 0; i < animations.length; i = i + 2) {
             // gets array of all the array-bar objects that are currently in the DOM
@@ -149,12 +157,13 @@ export default class SortingVisualizer extends React.Component {
                     minBarStyle.height = swapBarHeight;
                     arrayBars[barOneIdx].style.backgroundColor = FINAL_COLOR;
                 }
-                // color first two bars green when finished
+                // when finished
                 if (animations.length - i < 3) {
+                    // assign correct heights to last 3
                     arrayBars[animations[i] - 1].style.height = this.state.array[animations[i] - 1] + 'px';
                     arrayBars[animations[i]].style.height = this.state.array[animations[i]] + 'px';
                     arrayBars[animations[i] + 1].style.height = this.state.array[animations[i] + 1] + 'px';
-
+                    // assign correct colors to last 3
                     arrayBars[animations[i] - 1].style.backgroundColor = FINAL_COLOR;
                     arrayBars[animations[i]].style.backgroundColor = FINAL_COLOR;
                     arrayBars[animations[i] + 1].style.backgroundColor = FINAL_COLOR;
@@ -163,6 +172,9 @@ export default class SortingVisualizer extends React.Component {
         }
     }
 
+    /*
+        Render using ReactJS.
+    */
     render() {
         const {array} = this.state;
         return (
@@ -183,91 +195,3 @@ export default class SortingVisualizer extends React.Component {
         );
       }
     }
-
-    /*
-        Generates a random integer between a given min and max.
-    */
-    function randomInt(min, max) {
-        return Math.floor(Math.random() * (max - min + 1) + min);
-    }
-
-    /*
-        Determines if two given arrays are equal.
-    */
-    function arraysAreEqual(array1, array2) {
-        if (array1.length !== array2.length) return false;
-        for (let i = 0; i < array1.length; i++) {
-            if (array1[i] !== array2[i]) return false;
-        }
-        return true;
-    }
-
-    /*
-        Returns an array of animations for the Bubble Sort algorithm.
-    */
-    function getBubbleSortAnimations(array) {
-        const animations = [];
-        if (array.length === 1) return array;
-    
-        let size = array.length;
-        // # of sorting runs through the array
-        for (let i = 0; i < size - 1; i++) {
-            // a single sorting run through the array
-            // (size - i - 1) because each run solidifies the new max
-            for (let j = 0; j < size-i-1; j++) {
-                animations.push(j);
-                animations.push(j);
-                // swap if first is greater than the second
-                if(array[j] > array[j+1]) {
-                    let temp = array[j];
-                    array[j] = array[j+1];
-                    array[j+1] = temp;
-                }
-            }
-        }
-        return animations;
-    }
-
-    /*
-        Returns an array of animations for the Selection Sort algorithm.
-    */
-   function getSelectionSortAnimations(array) {
-        const animations = [];
-        if (array.length === 1) return array;
-
-        let size = array.length;
-        // # of sorting runs through the array
-        for (let i = 0; i < size - 1; i++) {
-            let min = i;
-            // a single sorting run through the array
-            for (let j = 1 + i; j < size; j++) {
-                animations.push(i);
-                animations.push(j);
-                animations.push(i);
-                animations.push(j);
-                // find min
-                if (array[j] < array[min]) {
-                    min = j;
-                }
-            }
-            // swap min for start index
-            let temp = array[i];
-            array[i] = array[min];
-            array[min] = temp;
-        }
-        console.log(array)
-        return animations;
-   }
-
-   /*
-        Finds a given element in a given array.
-   */
-  function findElementIdx(element, array) {
-        let result = -1;
-        for (let i = 0; i < array.length; i++) {
-            if (array[i].style.height === element + 'px') {
-                result = i;
-            }
-        }
-        return result;
-  }
