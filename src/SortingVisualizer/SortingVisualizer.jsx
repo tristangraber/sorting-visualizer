@@ -146,42 +146,6 @@ export default class SortingVisualizer extends React.Component {
                 }
                 // color first two bars green when finished
                 if (animations.length - i < 3) {
-                    let barFirstStyle = arrayBars[animations[i] - 1].style;
-                    let barSecondStyle = arrayBars[animations[i]].style;
-                    let barThirdStyle = arrayBars[animations[i] + 1].style;
-                    let barFirstHeight = barFirstStyle.height;
-                    let barSecondHeight = barSecondStyle.height;
-                    let barThirdHeight = barThirdStyle.height;
-
-                    if (barFirstHeight < barSecondHeight && barFirstHeight < barThirdHeight) {
-                        // 0, 2, 1
-                        if (barSecondHeight > barThirdHeight) {
-                            let temp = barSecondHeight;
-                            barThirdStyle.height = barSecondHeight;
-                            barSecondStyle.height = temp;
-                        }
-                        // otherwise it is in order
-                    }
-                    else if (barSecondHeight < barFirstHeight && barSecondHeight < barThirdHeight) {
-                        // 1, 0, 2
-                        if (barFirstHeight < barThirdHeight) {
-                            let temp = barSecondHeight;
-                            barThirdStyle.height = barSecondHeight;
-                            barSecondStyle.height = temp;
-                        }
-                        else {
-
-                        }
-                    }
-                    else {
-                        if (barFirstHeight < barSecondHeight) {
-
-                        }
-                        else {
-
-                        }
-                    }
-
                     arrayBars[animations[i] - 1].style.backgroundColor = FINAL_COLOR;
                     arrayBars[animations[i]].style.backgroundColor = FINAL_COLOR;
                     arrayBars[animations[i] + 1].style.backgroundColor = FINAL_COLOR;
