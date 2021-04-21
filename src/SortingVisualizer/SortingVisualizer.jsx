@@ -11,8 +11,8 @@ import './SortingVisualizer.css';
 const PRIMARY_COLOR = 'lightblue';
 const SECONDARY_COLOR = 'orange';
 const FINAL_COLOR = 'lightgreen';
-const ANIMATION_SPEED = 40;
-const ARRAY_SIZE = 10;
+const ANIMATION_SPEED = 200;
+const ARRAY_SIZE = 4;
 
 export default class SortingVisualizer extends React.Component {
     constructor(props) {
@@ -108,9 +108,9 @@ export default class SortingVisualizer extends React.Component {
             - the second pair (i + 2, i + 3) is to change color back to primary
     */
     selectionSort() {
-        const oldArray = Array.from(this.state.array);
         // get array of animations for selection sort
         const animations = getSelectionSortAnimations(this.state.array);
+        console.log(animations);
         // loop for each value of the animation (pt 1: primary to secondary, pt 2: secondary to other)
         for (let i = 0; i < animations.length; i = i + 2) {
             // gets array of all the array-bar objects that are currently in the DOM
