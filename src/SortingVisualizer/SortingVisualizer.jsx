@@ -4,7 +4,6 @@ Names: Tristan Graber and Ethan Wert
 Date: 4/21/21
 */
 
-// this is a test hoe
 import React from 'react';
 import './SortingVisualizer.css';
 
