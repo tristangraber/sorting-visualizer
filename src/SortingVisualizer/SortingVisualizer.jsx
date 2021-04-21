@@ -7,6 +7,7 @@ Date: 4/21/21
 import React from 'react';
 import './SortingVisualizer.css';
 
+// comment for git test
 const PRIMARY_COLOR = 'lightblue';
 const SECONDARY_COLOR = 'orange';
 const FINAL_COLOR = 'lightgreen';
