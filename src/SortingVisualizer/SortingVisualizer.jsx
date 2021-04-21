@@ -11,8 +11,8 @@ import './SortingVisualizer.css';
 const PRIMARY_COLOR = 'lightblue';
 const SECONDARY_COLOR = 'orange';
 const FINAL_COLOR = 'lightgreen';
-const ANIMATION_SPEED = 200;
-const ARRAY_SIZE = 4;
+const ANIMATION_SPEED = 1;
+const ARRAY_SIZE = 100;
 
 export default class SortingVisualizer extends React.Component {
     constructor(props) {
@@ -146,6 +146,12 @@ export default class SortingVisualizer extends React.Component {
                 }
                 // color first two bars green when finished
                 if (animations.length - i < 3) {
+                    let idx = findElementIdx(this.state.array[animations[i] - 1], arrayBars);
+                    arrayBars[idx].style.height = this.state.array[idx].height;
+                    idx = findElementIdx(this.state.array[animations[i]], arrayBars);
+                    arrayBars[idx].style.height = this.state.array[idx].height;
+                    idx = findElementIdx(this.state.array[animations[i] + 1], arrayBars);
+                    arrayBars[idx].style.height = this.state.array[idx].height;
                     arrayBars[animations[i] - 1].style.backgroundColor = FINAL_COLOR;
                     arrayBars[animations[i]].style.backgroundColor = FINAL_COLOR;
                     arrayBars[animations[i] + 1].style.backgroundColor = FINAL_COLOR;
