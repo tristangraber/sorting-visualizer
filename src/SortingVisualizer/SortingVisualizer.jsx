@@ -11,8 +11,8 @@ import './SortingVisualizer.css';
 const PRIMARY_COLOR = 'lightblue';
 const SECONDARY_COLOR = 'orange';
 const FINAL_COLOR = 'lightgreen';
-const ANIMATION_SPEED = 1;
-const ARRAY_SIZE = 100;
+const ANIMATION_SPEED = 40;
+const ARRAY_SIZE = 10;
 
 export default class SortingVisualizer extends React.Component {
     constructor(props) {
@@ -99,6 +99,13 @@ export default class SortingVisualizer extends React.Component {
 
     /*
         Runs the Selection Sort sorting algorithm on the current array.
+
+        DOCUMENTATION:
+         - animations array will have 4 indicies for each step of the animation
+            - EX: animations = [0,1,0,1,0,2,0,2...]
+            - i = 0 is the first bar to compare and i + 1 is the next bar to compare
+            - the first pair (i, i + 1) is to change color from primary to secondary
+            - the second pair (i + 2, i + 3) is to change color back to primary
     */
     selectionSort() {
         const oldArray = Array.from(this.state.array);
@@ -139,6 +146,43 @@ export default class SortingVisualizer extends React.Component {
                 }
                 // color first two bars green when finished
                 if (animations.length - i < 3) {
+                    let barFirstStyle = arrayBars[animations[i] - 1].style;
+                    let barSecondStyle = arrayBars[animations[i]].style;
+                    let barThirdStyle = arrayBars[animations[i] + 1].style;
+                    let barFirstHeight = barFirstStyle.height;
+                    let barSecondHeight = barSecondStyle.height;
+                    let barThirdHeight = barThirdStyle.height;
+
+                    if (barFirstHeight < barSecondHeight && barFirstHeight < barThirdHeight) {
+                        // 0, 2, 1
+                        if (barSecondHeight > barThirdHeight) {
+                            let temp = barSecondHeight;
+                            barThirdStyle.height = barSecondHeight;
+                            barSecondStyle.height = temp;
+                        }
+                        // otherwise it is in order
+                    }
+                    else if (barSecondHeight < barFirstHeight && barSecondHeight < barThirdHeight) {
+                        // 1, 0, 2
+                        if (barFirstHeight < barThirdHeight) {
+                            let temp = barSecondHeight;
+                            barThirdStyle.height = barSecondHeight;
+                            barSecondStyle.height = temp;
+                        }
+                        else {
+
+                        }
+                    }
+                    else {
+                        if (barFirstHeight < barSecondHeight) {
+
+                        }
+                        else {
+
+                        }
+                    }
+
+                    arrayBars[animations[i] - 1].style.backgroundColor = FINAL_COLOR;
                     arrayBars[animations[i]].style.backgroundColor = FINAL_COLOR;
                     arrayBars[animations[i] + 1].style.backgroundColor = FINAL_COLOR;
                 }
