@@ -99,11 +99,6 @@ export default class SortingVisualizer extends React.Component {
                 }
                 // color first two bars green when finished
                 if (animations.length - i < 3) {
-                    arrayBars[animations[i] - 1].style.height = this.state.array[animations[i] - 1] + 'px';
-                    arrayBars[animations[i]].style.height = this.state.array[animations[i]] + 'px';
-                    arrayBars[animations[i] + 1].style.height = this.state.array[animations[i] + 1] + 'px';
-
-                    arrayBars[animations[i] - 1].style.backgroundColor = FINAL_COLOR;
                     arrayBars[animations[i]].style.backgroundColor = FINAL_COLOR;
                     arrayBars[animations[i] + 1].style.backgroundColor = FINAL_COLOR;
                 }
